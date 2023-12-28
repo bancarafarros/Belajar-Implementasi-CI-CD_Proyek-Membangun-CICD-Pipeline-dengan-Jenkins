@@ -1,0 +1,3 @@
+https://github.com/bancarafarros/simple-python-pyinstaller-app
+
+https://simple-python-pyinstaller-app.vercel.app/

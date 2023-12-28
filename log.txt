@@ -1,0 +1,223 @@
+Started by an SCM change
+Obtained Jenkinsfile from git /home/Downloads/simple-python-pyinstaller-app
+[Pipeline] Start of Pipeline
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/submission-python
+[Pipeline] {
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/submission-python/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url /home/Downloads/simple-python-pyinstaller-app # timeout=10
+Fetching upstream changes from /home/Downloads/simple-python-pyinstaller-app
+ > git --version # timeout=10
+ > git --version # 'git version 2.30.2'
+ > git fetch --tags --force --progress -- /home/Downloads/simple-python-pyinstaller-app +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 624e81306434a2b39506d459d74ba73567a00dbc (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 624e81306434a2b39506d459d74ba73567a00dbc # timeout=10
+Commit message: "refactor"
+ > git rev-list --no-walk 747af9c290e9720a1280666ec612fc71581a29e5 # timeout=10
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ docker inspect -f . python:3.12.1-alpine3.19
+.
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+Jenkins seems to be running inside container d64866b1d2e63be9e071aa029078cb58a52752d92e62115ae1db313d4fca4371
+but /var/jenkins_home/workspace/submission-python could not be found among []
+but /var/jenkins_home/workspace/submission-python@tmp could not be found among []
+$ docker run -t -d -u 1000:1000 -w /var/jenkins_home/workspace/submission-python -v /var/jenkins_home/workspace/submission-python:/var/jenkins_home/workspace/submission-python:rw,z -v /var/jenkins_home/workspace/submission-python@tmp:/var/jenkins_home/workspace/submission-python@tmp:rw,z -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** python:3.12.1-alpine3.19 cat
+$ docker top 416f3d30a341b2a1ff183c235e47cd66c37d7d92fbfe99c4f5f952fe479d400f -eo pid,comm
+[Pipeline] {
+[Pipeline] sh
++ python -m py_compile sources/add2vals.py sources/calc.py
+[Pipeline] stash
+Stashed 5 file(s)
+[Pipeline] }
+$ docker stop --time=1 416f3d30a341b2a1ff183c235e47cd66c37d7d92fbfe99c4f5f952fe479d400f
+$ docker rm -f 416f3d30a341b2a1ff183c235e47cd66c37d7d92fbfe99c4f5f952fe479d400f
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/submission-python
+[Pipeline] {
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/submission-python/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url /home/Downloads/simple-python-pyinstaller-app # timeout=10
+Fetching upstream changes from /home/Downloads/simple-python-pyinstaller-app
+ > git --version # timeout=10
+ > git --version # 'git version 2.30.2'
+ > git fetch --tags --force --progress -- /home/Downloads/simple-python-pyinstaller-app +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 624e81306434a2b39506d459d74ba73567a00dbc (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 624e81306434a2b39506d459d74ba73567a00dbc # timeout=10
+Commit message: "refactor"
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ docker inspect -f . qnib/pytest
+.
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+Jenkins seems to be running inside container d64866b1d2e63be9e071aa029078cb58a52752d92e62115ae1db313d4fca4371
+but /var/jenkins_home/workspace/submission-python could not be found among []
+but /var/jenkins_home/workspace/submission-python@tmp could not be found among []
+$ docker run -t -d -u 1000:1000 -w /var/jenkins_home/workspace/submission-python -v /var/jenkins_home/workspace/submission-python:/var/jenkins_home/workspace/submission-python:rw,z -v /var/jenkins_home/workspace/submission-python@tmp:/var/jenkins_home/workspace/submission-python@tmp:rw,z -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** qnib/pytest cat
+$ docker top 8c0e44f602db2af78ce195bf1590d1ea00d4e6aefb80efe9188501c8ad1cfdd6 -eo pid,comm
+[Pipeline] {
+[Pipeline] sh
++ py.test --junit-xml test-reports/results.xml sources/test_calc.py
+============================= test session starts ==============================
+platform linux2 -- Python 2.7.14, pytest-3.5.0, py-1.5.3, pluggy-0.6.0
+rootdir: /var/jenkins_home/workspace/submission-python, inifile:
+plugins: cov-2.5.1
+collected 5 items
+
+sources/test_calc.py .....                                               [100%]
+
+ generated xml file: /var/jenkins_home/workspace/submission-python/test-reports/results.xml 
+=========================== 5 passed in 0.03 seconds ===========================
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+$ docker stop --time=1 8c0e44f602db2af78ce195bf1590d1ea00d4e6aefb80efe9188501c8ad1cfdd6
+$ docker rm -f 8c0e44f602db2af78ce195bf1590d1ea00d4e6aefb80efe9188501c8ad1cfdd6
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Manual Approval)
+[Pipeline] input
+Lanjutkan ke tahap Deploy?
+Proceed or Abort
+Approved by Dicoding Indonesia
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/submission-python
+[Pipeline] {
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/submission-python/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url /home/Downloads/simple-python-pyinstaller-app # timeout=10
+Fetching upstream changes from /home/Downloads/simple-python-pyinstaller-app
+ > git --version # timeout=10
+ > git --version # 'git version 2.30.2'
+ > git fetch --tags --force --progress -- /home/Downloads/simple-python-pyinstaller-app +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 624e81306434a2b39506d459d74ba73567a00dbc (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 624e81306434a2b39506d459d74ba73567a00dbc # timeout=10
+Commit message: "refactor"
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] dir
+Running in /var/jenkins_home/workspace/submission-python/6
+[Pipeline] {
+[Pipeline] unstash
+[Pipeline] sh
++ pwd
++ docker run --rm -v /var/jenkins_home/workspace/submission-python/6/sources:/src cdrx/pyinstaller-linux:python2 pyinstaller -F add2vals.py
+bash: cannot set terminal process group (-1): Inappropriate ioctl for device
+bash: no job control in this shell
+pyinstaller -F add2vals.py
+154 INFO: PyInstaller: 3.6
+160 INFO: Python: 2.7.17
+161 INFO: Platform: Linux-5.4.0-169-generic-x86_64-with-debian-wheezy-sid
+165 INFO: wrote /src/add2vals.spec
+217 INFO: UPX is available.
+221 INFO: Extending PYTHONPATH with paths
+['/src', '/src']
+223 INFO: checking Analysis
+223 INFO: Building Analysis because Analysis-00.toc is non existent
+224 INFO: Initializing module dependency graph...
+227 INFO: Caching module graph hooks...
+243 INFO: Caching module dependency graph...
+325 INFO: running Analysis Analysis-00.toc
+397 INFO: Analyzing /src/add2vals.py
+552 INFO: Processing module hooks...
+571 INFO: Loading module hook "hook-encodings.py"...
+8159 INFO: Looking for ctypes DLLs
+8172 INFO: Analyzing run-time hooks ...
+8199 INFO: Looking for dynamic libraries
+9961 INFO: Looking for eggs
+9963 INFO: Using Python library /root/.pyenv/versions/2.7.17/lib/libpython2.7.so.1.0
+9972 INFO: Warnings written to /src/build/add2vals/warn-add2vals.txt
+10070 INFO: Graph cross-reference written to /src/build/add2vals/xref-add2vals.html
+10395 INFO: checking PYZ
+10400 INFO: Building PYZ because PYZ-00.toc is non existent
+10403 INFO: Building PYZ (ZlibArchive) /src/build/add2vals/PYZ-00.pyz
+11125 INFO: Building PYZ (ZlibArchive) /src/build/add2vals/PYZ-00.pyz completed successfully.
+11377 INFO: checking PKG
+11379 INFO: Building PKG because PKG-00.toc is non existent
+11383 INFO: Building PKG (CArchive) PKG-00.pkg
+22960 INFO: Building PKG (CArchive) PKG-00.pkg completed successfully.
+23056 INFO: Bootloader /root/.pyenv/versions/2.7.17/lib/python2.7/site-packages/PyInstaller/bootloader/Linux-64bit/run
+23076 INFO: checking EXE
+23078 INFO: Building EXE because EXE-00.toc is non existent
+23082 INFO: Building EXE from EXE-00.toc
+23088 INFO: Appending archive to ELF section in EXE /src/dist/add2vals
+23211 INFO: Building EXE from EXE-00.toc completed successfully.
+[Pipeline] sleep
+Sleeping for 1 min 0 sec
+[Pipeline] }
+[Pipeline] // dir
+Post stage
+[Pipeline] archiveArtifacts
+Archiving artifacts
+[Pipeline] sh
++ pwd
++ docker run --rm -v /var/jenkins_home/workspace/submission-python/sources:/src cdrx/pyinstaller-linux:python2 rm -rf build dist
+bash: cannot set terminal process group (-1): Inappropriate ioctl for device
+bash: no job control in this shell
+rm -rf build dist
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] End of Pipeline
+Finished: SUCCESS
